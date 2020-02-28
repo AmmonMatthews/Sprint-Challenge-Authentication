@@ -2,7 +2,9 @@ const router = require('express').Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
+
 const Users = require('./auth-modules.js');
+const { jwtSecret } = require('../config/secret.js')
 
 router.get("/", (req, res) => {
   res.json({message: "auth server is working"})
@@ -56,7 +58,7 @@ function generateToken(user){
     subject: user.id,
     username: user.username
   }
-  const secret = process.env.JWT_SECRET || 'keep it simple stupid'
+  const secret = jwtSecret
 
   const options = {
     expiresIn: '1h'
