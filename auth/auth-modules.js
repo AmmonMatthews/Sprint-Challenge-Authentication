@@ -6,12 +6,12 @@ module.exports={
 }
 
 function add(user){
-    db('users')
+    return db('users')
     .insert(user, "id")
 }
 
 function findBy(id){
-    db('users')
-    .where({id})
+    return db('users')
+    .where(id)
     .first();
 }

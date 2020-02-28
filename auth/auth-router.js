@@ -4,6 +4,10 @@ const jwt = require('jsonwebtoken');
 
 const Users = require('./auth-modules.js');
 
+router.get("/", (req, res) => {
+  res.json({message: "auth server is working"})
+})
+
 
 router.post('/register', (req, res) => {
   // implement registration
@@ -30,7 +34,7 @@ router.post('/login', (req, res) => {
   Users.findBy({ username })
     .first()
     .then(user => {
-      if(user && bcrypt.comparSync(password, user.password)){
+      if(user && bcrypt.compareSync(password, user.password)){
         // create token and generate token function
         const token = generateToken(user)
 
@@ -55,7 +59,7 @@ function generateToken(user){
   const secret = process.env.JWT_SECRET || 'keep it simple stupid'
 
   const options = {
-    expiresIn= '1h'
+    expiresIn: '1h'
   }
 
     return jwt.sign(payload, secret, options)
