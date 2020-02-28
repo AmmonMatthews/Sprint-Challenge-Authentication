@@ -11,8 +11,9 @@ module.exports = (req, res, next) => {
   const { authorization } = req.headers
   
   if(authorization){
-    jwt.verify(authorization, jwtSecret, (err, decodedToken => {
+    jwt.verify(authorization, jwtSecret, ((err, decodedToken) => {
       if(err) {
+        console.log(err)
         res.status(401).json({ message: "invalid Credentials"})
       } else { 
         req.decodedToken = decodedToken
